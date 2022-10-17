@@ -1,0 +1,2 @@
+variable "registry" {}
+variable "naming" {}
