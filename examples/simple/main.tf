@@ -39,6 +39,12 @@ module "acr" {
       enable = {
         trust_policy     = true
         retention_policy = true
+        admin            = true
+      }
+
+      replications = {
+        sea  = { location = "southeastasia", enable_zone_redundancy = false }
+        eus2 = { location = "eastus2", enable_zone_redundancy = false, regional_endpoint_enabled = true }
       }
     }
   }
