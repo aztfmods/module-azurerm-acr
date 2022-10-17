@@ -31,9 +31,9 @@ module "acr" {
 
   registry = {
     demo = {
-      location          = module.global.groups.acr.location
-      resourcegroup     = module.global.groups.acr.name
-      sku               = "Premium"
+      location      = module.global.groups.acr.location
+      resourcegroup = module.global.groups.acr.name
+      sku           = "Premium"
     }
   }
   depends_on = [module.global]
