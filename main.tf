@@ -34,4 +34,15 @@ resource "azurerm_container_registry" "acr" {
   location            = data.azurerm_resource_group.rg[each.key].location
   sku                 = each.value.sku
   admin_enabled       = true
+
+  dynamic "trust_policy" {
+    for_each = {
+      for k, v in var.registry : k => v
+      if try(v.enable.trust_policy, false) == true && v.sku == "Premium"
+    }
+
+    content {
+      enabled = each.value.enable.trust_policy
+    }
+  }
 }
