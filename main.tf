@@ -44,5 +44,17 @@ resource "azurerm_container_registry" "acr" {
     content {
       enabled = each.value.enable.trust_policy
     }
+
+  dynamic "retention_policy" {
+    for_each = {
+      for k, v in var.registry : k => v
+      if try(v.enable.retention_policy, false) == true && v.sku == "Premium"
+    }
+
+    content {
+      enabled = each.value.enable.retention_policy
+      days    = try(each.value.retention_in_days, null)
+    }
+  }
   }
 }

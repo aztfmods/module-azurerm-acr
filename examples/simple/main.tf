@@ -31,9 +31,15 @@ module "acr" {
 
   registry = {
     demo = {
-      location      = module.global.groups.acr.location
-      resourcegroup = module.global.groups.acr.name
-      sku           = "Premium"
+      location          = module.global.groups.acr.location
+      resourcegroup     = module.global.groups.acr.name
+      sku               = "Premium"
+      retention_in_days = 90
+
+      enable = {
+        trust_policy     = true
+        retention_policy = true
+      }
     }
   }
   depends_on = [module.global]
