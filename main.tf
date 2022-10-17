@@ -33,7 +33,7 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = data.azurerm_resource_group.rg[each.key].name
   location            = data.azurerm_resource_group.rg[each.key].location
   sku                 = each.value.sku
-  admin_enabled       = true
+  admin_enabled       = try(each.value.enable.admin, false)
 
   dynamic "trust_policy" {
     for_each = {
@@ -44,6 +44,7 @@ resource "azurerm_container_registry" "acr" {
     content {
       enabled = each.value.enable.trust_policy
     }
+  }
 
   dynamic "retention_policy" {
     for_each = {
@@ -56,5 +57,17 @@ resource "azurerm_container_registry" "acr" {
       days    = try(each.value.retention_in_days, null)
     }
   }
+
+  dynamic "georeplications" {
+    for_each = {
+      for k, v in try(each.value.replications, {}) : k => v
+      if each.value.sku == "Premium"
+    }
+
+    content {
+      location                  = georeplications.value.location
+      zone_redundancy_enabled   = try(georeplications.value.enable_zone_redundancy, null)
+      regional_endpoint_enabled = try(georeplications.value.regional_endpoint_enabled, null)
+    }
   }
 }
