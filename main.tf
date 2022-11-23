@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------------------
-# Resourcegroups
+# resourcegroups
 #----------------------------------------------------------------------------------------
 
 data "azurerm_resource_group" "rg" {
@@ -9,7 +9,7 @@ data "azurerm_resource_group" "rg" {
 }
 
 #----------------------------------------------------------------------------------------
-# Generate random id
+# generate random id
 #----------------------------------------------------------------------------------------
 
 resource "random_string" "random" {
@@ -23,7 +23,22 @@ resource "random_string" "random" {
 }
 
 #----------------------------------------------------------------------------------------
-# Container registry
+# user managed identity
+#----------------------------------------------------------------------------------------
+
+resource "azurerm_user_assigned_identity" "mi" {
+  for_each = {
+    for k, v in var.registry : k => v
+    if v.identity.type == "UserAssigned"
+  }
+
+  name                = "id-${var.naming.company}-${each.key}-${var.naming.env}-${var.naming.region}"
+  resource_group_name = data.azurerm_resource_group.rg[each.key].name
+  location            = data.azurerm_resource_group.rg[each.key].location
+}
+
+#----------------------------------------------------------------------------------------
+# container registries
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_container_registry" "acr" {
@@ -55,6 +70,17 @@ resource "azurerm_container_registry" "acr" {
     content {
       enabled = each.value.enable.retention_policy
       days    = try(each.value.retention_in_days, null)
+    }
+  }
+
+  dynamic "identity" {
+    for_each = {
+      for k, v in try(each.value.identity, {}) : k => v
+    }
+
+    content {
+      type         = each.value.identity.type
+      identity_ids = each.value.identity.type == "UserAssigned" ? [azurerm_user_assigned_identity.mi[each.key].id] : []
     }
   }
 

@@ -36,6 +36,10 @@ module "acr" {
       sku               = "Premium"
       retention_in_days = 90
 
+      identity = {
+        type = "UserAssigned"
+      }
+
       enable = {
         trust_policy     = true
         retention_policy = true
