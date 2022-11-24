@@ -7,12 +7,12 @@ Terraform module which creates container registry resources on Azure.
 The below features are made available:
 
 - multiple container registries
-- [replication](#usage-single-container-registry-multiple-replications) support on each registry
+- [replication](#usage-replications) support on each registry
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 
 The below examples shows the usage when consuming the module:
 
-## Usage: minimal
+## Usage: single
 
 ```hcl
 module "acr" {
@@ -95,8 +95,11 @@ module "acr" {
 
 ## Local development
 
-To test modules on your local machine, first make sure you are authenticated to your subscription using [azure cli](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
-Install [terraform](https://developer.hashicorp.com/terraform/downloads) locally, and go to a working directoy in the [examples](examples) folder in your terminal.
+To test modules on your local machine, first make sure you are authenticated to your subscription  
+using [azure cli](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
+
+Install [terraform](https://developer.hashicorp.com/terraform/downloads) locally, and go to  
+a working directoy in the [examples](examples) folder in your terminal.  
 Perform a terraform init and apply.
 
 ## Authors
