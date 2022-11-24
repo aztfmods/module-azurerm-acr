@@ -49,13 +49,35 @@ resource "azurerm_container_registry" "acr" {
   location            = data.azurerm_resource_group.rg[each.key].location
   sku                 = each.value.sku
 
-  admin_enabled                 = try(each.value.enable.admin, false)
-  anonymous_pull_enabled        = each.value.sku == "Standard" || each.value.sku == "Premium" ? try(each.value.enable.anonymous_pull, false) : false
-  data_endpoint_enabled         = each.value.sku == "Premium" ? try(each.value.enable.data_endpoint, false) : false
-  export_policy_enabled         = each.value.sku == "Premium" && try(each.value.enable.public_network_access, true) == false ? try(each.value.enable.export_policy, true) : true
-  public_network_access_enabled = try(each.value.enable.export_policy, true) == false ? try(each.value.enable.public_network_access, true) : true
-  quarantine_policy_enabled     = try(each.value.enable.quarantine_policy, false)
-  network_rule_bypass_option    = try(each.value.network_rule_bypass, "AzureServices")
+  anonymous_pull_enabled = (
+    each.value.sku == "Standard" ||
+    each.value.sku == "Premium" ?
+    try(each.value.enable.anonymous_pull, false)
+    : false
+  )
+
+  data_endpoint_enabled = (
+    each.value.sku == "Premium" ?
+    try(each.value.enable.data_endpoint, false)
+    : false
+  )
+
+  export_policy_enabled = (
+    each.value.sku == "Premium" &&
+    try(each.value.enable.public_network_access, true) == false ?
+    try(each.value.enable.export_policy, true)
+    : true
+  )
+
+  public_network_access_enabled = (
+    try(each.value.enable.export_policy, true) == false ?
+    try(each.value.enable.public_network_access, true)
+    : true
+  )
+
+  admin_enabled              = try(each.value.enable.admin, false)
+  quarantine_policy_enabled  = try(each.value.enable.quarantine_policy, false)
+  network_rule_bypass_option = try(each.value.network_rule_bypass, "AzureServices")
 
   dynamic "trust_policy" {
     for_each = {
