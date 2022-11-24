@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0](https://github.com/aztfmods/module-azurerm-acr/compare/v1.0.0...v1.1.0) (2022-11-24)
+
+
+### Features
+
+* add identity support ([#21](https://github.com/aztfmods/module-azurerm-acr/issues/21)) ([10d44ef](https://github.com/aztfmods/module-azurerm-acr/commit/10d44ef970931605cb9fce1b3aeb6d3b86a46f8a))
+* add initial probot config ([#10](https://github.com/aztfmods/module-azurerm-acr/issues/10)) ([9985886](https://github.com/aztfmods/module-azurerm-acr/commit/9985886de9ffc79c59cc09bb4e9c6800b17c862a))
+* add more optional arguments ([#22](https://github.com/aztfmods/module-azurerm-acr/issues/22)) ([7466fce](https://github.com/aztfmods/module-azurerm-acr/commit/7466fcecb3fbf24bc94a758f8f74b708951d800a))
+* add multiline support conditional expressions ([#24](https://github.com/aztfmods/module-azurerm-acr/issues/24)) ([7df68ad](https://github.com/aztfmods/module-azurerm-acr/commit/7df68ad86685244393b760625fe82f3a6920f4f9))
+* update documentation ([#25](https://github.com/aztfmods/module-azurerm-acr/issues/25)) ([acc4f35](https://github.com/aztfmods/module-azurerm-acr/commit/acc4f359cf3cc09f751f89945b456007c7c1d8ec))
+
 ## 1.0.0 (2022-10-17)
 
 
