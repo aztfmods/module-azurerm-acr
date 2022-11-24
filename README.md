@@ -95,8 +95,10 @@ module "acr" {
 
 ## Local development
 
-To test modules on your local machine, first make sure you are authenticated to your subscription  
-using [azure cli](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli). Install [terraform](https://developer.hashicorp.com/terraform/downloads) locally, and go to a working directoy in the [examples](examples) folder  
+To test modules on your local machine, first make sure you are authenticated to your azure subscription  
+using [cli](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).  
+
+Install [terraform](https://developer.hashicorp.com/terraform/downloads) locally, and go to a working directoy in the [examples](examples) folder  
 in your terminal. Perform a terraform init and apply.
 
 ## Authors
