@@ -37,12 +37,10 @@ module "acr" {
       retention_in_days   = 90
       network_rule_bypass = "None"
 
-      enable = {
-        trust_policy          = true
-        retention_policy      = true
-        admin                 = true
-        export_policy         = true
-        public_network_access = true
+      replications = {
+        sea  = { location = "southeastasia", enable_zone_redundancy = false }
+        eus  = { location = "eastus", enable_zone_redundancy = false }
+        eus2 = { location = "eastus2", enable_zone_redundancy = false, regional_endpoint_enabled = true }
       }
     }
   }
