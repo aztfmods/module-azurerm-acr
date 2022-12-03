@@ -44,14 +44,13 @@ resource "azurerm_user_assigned_identity" "mi" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_role_assignment" "rol" {
-  # for_each = var.registry
   for_each = {
     for k, v in var.registry : k => v
     if try(v.identity.type, {}) == "UserAssigned"
   }
 
-  scope                = each.value.role_assignment.scope
-  role_definition_name = "Key Vault Administrator"
+  scope                = each.value.role_assignment_scope
+  role_definition_name = "Key Vault Crypto Officer"
   principal_id         = azurerm_user_assigned_identity.mi[each.key].principal_id
 }
 

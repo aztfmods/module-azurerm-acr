@@ -43,7 +43,7 @@ module "kv" {
       }
 
       keys = {
-        demo = {
+        acr = {
           key_type = "RSA"
           key_size = 2048
           key_opts = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
@@ -71,12 +71,10 @@ module "acr" {
       retention_in_days   = 90
       network_rule_bypass = "None"
 
-      role_assignment = {
-        scope = module.kv.vaults.demo.id
-      }
+      role_assignment_scope = module.kv.vaults.demo.id
 
       encryption = {
-        kv_key_id = module.kv.kv_keys["demo.demo"].id
+        kv_key_id = module.kv.kv_keys["demo.acr"].id
       }
 
       identity = {
