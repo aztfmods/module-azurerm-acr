@@ -8,6 +8,7 @@ The below features are made available:
 
 - multiple container registries
 - [replication](examples/replications/main.tf) support on each registry
+- [encryption](examples/encryption/main.tf) support
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 
 The below examples shows the usage when consuming the module:
@@ -72,12 +73,15 @@ module "acr" {
 | [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [azurerm_container_registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_registry) | resource |
 | [azurerm_user_assigned_identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
+| [azurerm_role_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 
 ## Data Sources
 
 | Name | Type |
 | :-- | :-- |
 | [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/1.39.0/docs/data-sources/resource_group) | datasource |
+| [azurerm_client_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | datasource |
+
 
 ## Inputs
 
@@ -91,7 +95,8 @@ module "acr" {
 | Name | Description |
 | :-- | :-- |
 | `acr` | contains all container registry config |
-| `merged_ids` | contains all container registry resource id's specified within the module|
+| `merged_ids` | contains all container registry resource id's |
+| `mi` | contains all user managed identity config |
 
 ## Authors
 

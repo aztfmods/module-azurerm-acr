@@ -10,8 +10,9 @@ func TestApplyNoError(t *testing.T) {
 	t.Parallel()
 
 	tests := []string{
-		"../examples/replications",
-		// "../examples/simple",
+		//"../examples/encryption",
+		//"../examples/replications",
+		"../examples/simple",
 	}
 
 	for _, test := range tests {
@@ -19,7 +20,6 @@ func TestApplyNoError(t *testing.T) {
 			terraformOptions := &terraform.Options{
 				TerraformDir: test,
 				NoColor:      true,
-				Parallelism:  2,
 			}
 
 			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
