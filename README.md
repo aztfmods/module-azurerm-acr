@@ -8,6 +8,7 @@ The below features are made available:
 
 - multiple container registries
 - [replication](examples/replications/main.tf) support on each registry
+- [encryption] support
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 
 The below examples shows the usage when consuming the module:

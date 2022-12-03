@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 #----------------------------------------------------------------------------------------
 # resourcegroups
 #----------------------------------------------------------------------------------------
@@ -35,6 +37,22 @@ resource "azurerm_user_assigned_identity" "mi" {
   name                = "id-${var.naming.company}-${each.key}-${var.naming.env}-${var.naming.region}"
   resource_group_name = data.azurerm_resource_group.rg[each.key].name
   location            = data.azurerm_resource_group.rg[each.key].location
+}
+
+#----------------------------------------------------------------------------------------
+# role assignment
+#----------------------------------------------------------------------------------------
+
+resource "azurerm_role_assignment" "rol" {
+  # for_each = var.registry
+  for_each = {
+    for k, v in var.registry : k => v
+    if try(v.identity.type, {}) == "UserAssigned"
+  }
+
+  scope                = each.value.role_assignment.scope
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = azurerm_user_assigned_identity.mi[each.key].principal_id
 }
 
 #----------------------------------------------------------------------------------------
@@ -125,4 +143,20 @@ resource "azurerm_container_registry" "acr" {
       regional_endpoint_enabled = try(georeplications.value.regional_endpoint_enabled, null)
     }
   }
+
+  dynamic "encryption" {
+    for_each = {
+      for k, v in try(each.value.encryption, {}) : k => v
+    }
+
+    content {
+      enabled            = try(encryption.value.enable, true)
+      key_vault_key_id   = encryption.value
+      identity_client_id = azurerm_user_assigned_identity.mi[each.key].client_id
+    }
+  }
+
+  depends_on = [
+    azurerm_role_assignment.rol
+  ]
 }
