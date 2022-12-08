@@ -15,7 +15,7 @@ module "global" {
 }
 
 module "acr" {
-  source = "github.com/aztfmods/module-azurerm-acr"
+  source = "../../"
 
   company = module.global.company
   env     = module.global.env
