@@ -6,7 +6,7 @@ Terraform module which creates container registry resources on Azure.
 
 The below features are made available:
 
-- multiple container registries
+- [multiple](examples/multiple/main.tf) container registries
 - [replication](examples/replications/main.tf) support on each registry
 - [encryption](examples/encryption/main.tf) support
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
