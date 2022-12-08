@@ -12,6 +12,7 @@ func TestApplyNoError(t *testing.T) {
 	tests := []string{
 		//"../examples/encryption",
 		//"../examples/replications",
+		//"../examples/diagnostic-settings",
 		"../examples/simple",
 	}
 

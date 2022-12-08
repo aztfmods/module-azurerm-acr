@@ -1,2 +1,4 @@
 variable "registry" {}
-variable "naming" {}
+variable "company" {}
+variable "region" {}
+variable "env" {}

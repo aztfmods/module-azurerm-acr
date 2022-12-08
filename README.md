@@ -19,16 +19,14 @@ The below examples shows the usage when consuming the module:
 module "acr" {
   source = "github.com/aztfmods/module-azurerm-acr"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   registry = {
     demo = {
-      location      = module.global.groups.acr.location
-      resourcegroup = module.global.groups.acr.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       sku           = "Premium"
     }
   }
@@ -42,16 +40,14 @@ module "acr" {
 module "acr" {
   source = "github.com/aztfmods/module-azurerm-acr"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   registry = {
     demo = {
-      location          = module.global.groups.acr.location
-      resourcegroup     = module.global.groups.acr.name
+      location          = module.global.groups.demo.location
+      resourcegroup     = module.global.groups.demo.name
       sku               = "Premium"
       retention_in_days = 90
 
@@ -88,7 +84,9 @@ module "acr" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `registry` | describes container registry related configuration | object | yes |
-| `naming` | contains naming convention | string | yes |
+| `company` | contains the company name used, for naming convention	| string | yes |
+| `region` | contains the shortname of the region, used for naming convention	| string | yes |
+| `env` | contains shortname of the environment used for naming convention	| string | yes |
 
 ## Outputs
 

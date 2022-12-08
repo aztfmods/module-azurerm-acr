@@ -34,7 +34,7 @@ resource "azurerm_user_assigned_identity" "mi" {
     if try(v.identity.type, {}) == "UserAssigned"
   }
 
-  name                = "id-${var.naming.company}-${each.key}-${var.naming.env}-${var.naming.region}"
+  name                = "id-${var.company}-${each.key}-${var.env}-${var.region}"
   resource_group_name = data.azurerm_resource_group.rg[each.key].name
   location            = data.azurerm_resource_group.rg[each.key].location
 }
@@ -61,7 +61,7 @@ resource "azurerm_role_assignment" "rol" {
 resource "azurerm_container_registry" "acr" {
   for_each = var.registry
 
-  name                = "acr${var.naming.company}${each.key}${var.naming.env}${var.naming.region}${random_string.random[each.key].result}"
+  name                = "acr${var.company}${each.key}${var.env}${var.region}${random_string.random[each.key].result}"
   resource_group_name = data.azurerm_resource_group.rg[each.key].name
   location            = data.azurerm_resource_group.rg[each.key].location
   sku                 = each.value.sku
