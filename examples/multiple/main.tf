@@ -22,7 +22,13 @@ module "acr" {
   region  = module.global.region
 
   registry = {
-    demo = {
+    acr1 = {
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
+      sku           = "Premium"
+    }
+
+    acr2 = {
       location      = module.global.groups.demo.location
       resourcegroup = module.global.groups.demo.name
       sku           = "Premium"
