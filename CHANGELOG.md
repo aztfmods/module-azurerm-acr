@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/aztfmods/module-azurerm-acr/compare/v1.1.0...v1.2.0) (2022-12-08)
+
+
+### Features
+
+* add multiple registry example ([#31](https://github.com/aztfmods/module-azurerm-acr/issues/31)) ([d96c46a](https://github.com/aztfmods/module-azurerm-acr/commit/d96c46af94085a786c6bec740cd8c136d4fc7899))
+* add replications example ([#26](https://github.com/aztfmods/module-azurerm-acr/issues/26)) ([2754ca7](https://github.com/aztfmods/module-azurerm-acr/commit/2754ca7fdee9a9e3addd5a89ba8622c3337b637a))
+* small refactor naming convention ([#30](https://github.com/aztfmods/module-azurerm-acr/issues/30)) ([a2fb346](https://github.com/aztfmods/module-azurerm-acr/commit/a2fb3460655c3e20cf2397c53e2b37e25b0dceea))
+
 ## [1.1.0](https://github.com/aztfmods/module-azurerm-acr/compare/v1.0.0...v1.1.0) (2022-11-24)
 
 
